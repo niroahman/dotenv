@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+echo "hello"
+
+script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+filter=""
+dry="0"
+
+while [[ $# -gt 0 ]]; do
+    if [[ $1 == "--dry" ]]; then
+        dry="1"
+    else
+        filter="$1"
+    fi
+    shift
+done
+
+log() {
+    if [[ $dry == "1" ]]; then
+        echo "[DRY_RUN]: $*"
+    else
+        echo "$@"
+    fi
+}
+execute() {
+    if [[ $dry == "1" ]]; then
+        return
+    fi
+
+    "$@"
+}
+
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+log "$script_dir -- $filter"
+
+cd "$script_dir" || exit
+scripts=$(find ./runs -maxdepth 1 -mindepth 1 -perm +111 -type f)
+
+# Need to install brew before others
+# add check to check if its already installed.
+# execute ./scripts/brew
+if command_exists "brew"; then
+    echo "brew already installed"
+else
+    echo "Installing brew"
+    execute ./scripts/brew
+fi
+
+for script in $scripts; do
+    if echo "$script" | grep -qv "$filter"; then
+        log "filtering $script"
+        continue
+    fi
+
+    execute ./$script
+done
+
+echo ""
+echo "######### Linking dotfiles #########"
+execute "$script_dir/dev-env"
+
+echo ""
+echo "######### Manual installs #########"
+echo ""
+
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+RESET="\033[0m"
+
+check_app() {
+    local name=$1
+    local path=$2
+    if [[ -d "$path" ]]; then
+        echo -e "  ${GREEN}✓${RESET} $name"
+    else
+        echo -e "  ${RED}✗${RESET} $name  <- needs install"
+    fi
+}
+
+echo "App Store:"
+check_app "Yubico Authenticator" "/Applications/Yubico Authenticator.app"
+check_app "Helium"             "/Applications/Helium.app"
+check_app "solidtime"          "/Applications/solidtime.app"
+
+echo ""
+echo "Direct download:"
+check_app "Claude"             "/Applications/Claude.app"
+check_app "Rectangle Pro"      "/Applications/Rectangle Pro.app"
+check_app "Google Drive"       "/Applications/Google Drive.app"
+
+echo ""
+echo "Post-install steps:"
+echo "  - Log out and back in (macOS defaults take effect)"
+echo "  - Open tmux and press prefix+I to install plugins"
+echo "  - Run: source ~/.zshrc"

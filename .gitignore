@@ -1,0 +1,5 @@
+.DS_Store
+errors.log
+env/.config/tmux/plugins/
+env/.config/karabiner/karabiner.json
+env/.config/karabiner/automatic_backups/

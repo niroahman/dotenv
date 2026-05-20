@@ -1,0 +1,101 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$directory\
+$package\
+$git_branch\
+$git_status\
+$golang\
+$python\
+$aws\
+$kubernetes\
+$cmd_duration\
+$line_break\
+$character"""
+
+palette = "catppuccin_mocha"
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo  = "#f2cdcd"
+pink      = "#f5c2e7"
+mauve     = "#cba6f7"
+red       = "#f38ba8"
+maroon    = "#eba0ac"
+peach     = "#fab387"
+yellow    = "#f9e2af"
+green     = "#a6e3a1"
+teal      = "#94e2d5"
+sky       = "#89dceb"
+sapphire  = "#74c7ec"
+blue      = "#89b4fa"
+lavender  = "#b4befe"
+text      = "#cdd6f4"
+subtext1  = "#bac2de"
+overlay1  = "#7f849c"
+surface1  = "#45475a"
+base      = "#1e1e2e"
+
+[directory]
+style = "bold blue"
+truncation_length = 3
+truncate_to_repo = true
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[git_branch]
+symbol = " "
+style = "mauve"
+format = "on [$symbol$branch]($style) "
+
+[git_status]
+format = '([$conflicted$untracked$modified$staged$renamed$deleted$ahead_behind]($style) )'
+style = ""
+ahead = "[⬆${count}](green) "
+behind = "[⬇${count}](red) "
+diverged = "[⬆${ahead_count}](green) [⬇${behind_count}](red) "
+staged = "[✚${count}](green) "
+modified = "[✎${count}](yellow) "
+untracked = "[○${count}](blue) "
+deleted = "[✕${count}](red) "
+renamed = "[→${count}](teal) "
+conflicted = "[≠${count}](maroon) "
+
+[nodejs]
+disabled = true
+
+[golang]
+symbol = " "
+style = "sky"
+format = "[$symbol($version)]($style) "
+
+[python]
+symbol = " "
+style = "yellow"
+format = "[$symbol($version)]($style) "
+
+[package]
+symbol = ""
+style = "subtext1"
+format = "[$version]($style) "
+display_private = true
+
+[aws]
+symbol = " "
+style = "peach"
+format = "[$symbol($profile)(\\($region\\))]($style) "
+
+[kubernetes]
+symbol = "⎈ "
+style = "blue"
+format = "[$symbol$context(\\($namespace\\))]($style) "
+disabled = false
+
+[cmd_duration]
+min_time = 2000
+style = "overlay1"
+format = "took [$duration]($style) "
+
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](mauve)"

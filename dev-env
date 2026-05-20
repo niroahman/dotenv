@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+dry="0"
+
+while [[ $# -gt 0 ]]; do
+    [[ $1 == "--dry" ]] && dry="1"
+    shift
+done
+
+log() { echo "$@"; }
+
+link() {
+    local from=$1
+    local to=$2
+
+    if [[ $dry == "1" ]]; then
+        echo "[DRY] ln -sf $from $to"
+        return
+    fi
+
+    if [[ -L $to ]]; then
+        local current=$(readlink "$to")
+        if [[ $current == $from ]]; then
+            echo "ok     $to"
+            return
+        fi
+        echo "relink $to  ($current -> $from)"
+        rm "$to"
+        ln -s "$from" "$to"
+    elif [[ -e $to ]]; then
+        echo "backup $to -> ${to}.bak"
+        mv "$to" "${to}.bak"
+        ln -sf "$from" "$to"
+    else
+        echo "link   $to"
+        ln -sf "$from" "$to"
+    fi
+}
+
+echo "######### DEV ENV ########"
+
+echo ""
+echo "--- .config ---"
+for src in "$script_dir"/env/.config/*/; do
+    src="${src%/}"
+    name=$(basename "$src")
+    link "$src" "$HOME/.config/$name"
+done
+for src in "$script_dir"/env/.config/*.*; do
+    [[ -f $src ]] || continue
+    name=$(basename "$src")
+    link "$src" "$HOME/.config/$name"
+done
+
+echo ""
+echo "--- home dotfiles ---"
+for src in "$script_dir"/env/.*; do
+    [[ -f $src ]] || continue
+    name=$(basename "$src")
+    link "$src" "$HOME/$name"
+done
+
+echo ""
+echo "--- .claude ---"
+mkdir -p "$HOME/.claude"
+for src in "$script_dir"/env/dot-claude/*; do
+    [[ -e $src ]] || continue
+    name=$(basename "$src")
+    link "$src" "$HOME/.claude/$name"
+done
+
+echo ""
+echo "--- scripts ---"
+mkdir -p "$HOME/scripts"
+for src in "$script_dir"/scripts/*; do
+    name=$(basename "$src")
+    link "$src" "$HOME/scripts/$name"
+done
+link "$script_dir/dev-env" "$HOME/scripts/dev-env"
+

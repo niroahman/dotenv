@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# macOS system defaults
+
+# Allow dragging windows by clicking anywhere (needed for hidden titlebar)
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
+echo "macOS defaults applied. Log out and back in for changes to take effect."

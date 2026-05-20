@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Regenerate Brewfile from live state
+
+script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+brewfile="$script_dir/../Brewfile"
+
+brew bundle dump --file="$brewfile" --force
+echo "Brewfile updated."

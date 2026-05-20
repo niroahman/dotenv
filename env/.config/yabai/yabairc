@@ -1,0 +1,93 @@
+#!/usr/bin/env sh
+
+# global settings
+yabai -m config debug_output                 off
+yabai -m config mouse_follows_focus          off
+yabai -m config focus_follows_mouse          off
+yabai -m config window_origin_display        cursor
+yabai -m config window_placement             second_child
+yabai -m config window_zoom_persist          off
+yabai -m config window_shadow                float
+yabai -m config insert_feedback_color        0xffd65d0e
+yabai -m config split_ratio                  0.50
+yabai -m config auto_balance                 off
+yabai -m config mouse_modifier               alt
+yabai -m config mouse_action1                move
+yabai -m config mouse_action2                resize
+yabai -m config mouse_drop_action            stack
+
+# general space settings
+yabai -m config external_bar all:36:0
+yabai -m config layout bsp
+yabai -m config top_padding 0
+yabai -m config bottom_padding 5
+yabai -m config left_padding 0
+yabai -m config right_padding 0
+yabai -m config window_gap 10
+
+
+
+# apps to not manage (ignore)
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
+
+app_titles="(Copy|Bin|About This Mac|Info|Finder Preferences|Preferences|QuickTime Player)"
+yabai -m rule --add title="${app_titles}" manage=off
+
+app_names="^(1Password|AppCleaner|Calculator|Finder|Karabiner-EventViewer|Raycast|Stats|VLC)$"
+yabai -m rule --add app="${app_names}" manage=off
+
+
+# when a new window is created, stack it on top of the window of the same
+# application, if exists
+yabai -m signal --add \
+    label=stack_same_name_applications event=window_created \
+    action="$HOME/.config/yabai/stack_same_name_applications.sh"
+
+yabai -m signal --add \
+    label="float small windows" \
+    event=window_created \
+    action="$HOME/.config/yabai/float_small_windows.sh"
+
+function setup_space {
+  local idx="$1"
+  local name="$2"
+  local space=
+  echo "setup space $idx : $name"
+
+  space=$(yabai -m query --spaces --space "$idx")
+  if [ -z "$space" ]; then
+    yabai -m space --create
+  fi
+
+  yabai -m space "$idx" --label "$name"
+}
+
+setup_space 1 dev
+setup_space 2 code
+setup_space 3 web
+setup_space 4 work
+setup_space 5 social
+setup_space 6 terms
+setup_space 7 music
+setup_space 8 other
+
+# space assignment rules — requires scripting addition (SIP disabled)
+#yabai -m rule --add app="^Brave Browser$" space=dev
+#yabai -m rule --add app="^Visual Studio Code$" space=code
+#yabai -m rule --add app="^Zen Browser$" space=web
+#yabai -m rule --add app="^Google Chrome$" space=web
+#yabai -m rule --add app="^Slack$" space=work
+#yabai -m rule --add app="^Ghostty$" space=terms
+#yabai -m rule --add app="^Spotify$" space=music
+#yabai -m rule --add app="^Obsidian$" space=other
+
+# sketchybar specific events
+yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+yabai -m signal --add event=space_changed action="sketchybar --trigger windows_on_spaces"
+
+borders active_color=0x000000ff inactive_color=0x000000ff width=5.0 style=round hidpi=off &
+
+
+echo "yabai configuration loaded.."

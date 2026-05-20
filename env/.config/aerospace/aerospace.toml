@@ -1,0 +1,109 @@
+# AeroSpace config — mirrors yabai/skhd setup
+# hyper = ctrl+shift+alt+cmd (CapsLock via Karabiner)
+#
+# REQUIREMENT: System Settings → Desktop & Dock →
+#   turn OFF "Displays have separate Spaces"
+
+after-login-command = []
+after-startup-command = ['exec-and-forget sketchybar --reload']
+
+start-at-login = true
+
+[gaps]
+inner.horizontal = 10
+inner.vertical   = 10
+outer.left       = 0
+outer.bottom     = 5
+outer.top        = 0
+outer.right      = 0
+
+[mode.main.binding]
+
+# Focus — hyper + h/j/k/l
+ctrl-shift-alt-cmd-h = 'focus left'
+ctrl-shift-alt-cmd-j = 'focus down'
+ctrl-shift-alt-cmd-k = 'focus up'
+ctrl-shift-alt-cmd-l = 'focus right'
+
+# Move — ctrl+alt + h/j/k/l
+ctrl-alt-h = 'move left'
+ctrl-alt-j = 'move down'
+ctrl-alt-k = 'move up'
+ctrl-alt-l = 'move right'
+
+# Resize — hyper + arrows
+ctrl-shift-alt-cmd-left  = 'resize width -50'
+ctrl-shift-alt-cmd-right = 'resize width +50'
+ctrl-shift-alt-cmd-up    = 'resize height -50'
+ctrl-shift-alt-cmd-down  = 'resize height +50'
+
+# Fullscreen
+ctrl-shift-alt-cmd-f = 'fullscreen'
+
+# Float toggle
+ctrl-shift-alt-cmd-space = 'layout floating tiling'
+
+# Rotate layout
+ctrl-shift-alt-cmd-r = 'layout h_tiles v_tiles'
+
+# Balance sizes
+ctrl-shift-alt-cmd-equal = 'balance-sizes'
+
+# Switch workspace — hyper + 1-8
+ctrl-shift-alt-cmd-1 = ['workspace 1-dev',      'exec-and-forget sketchybar --trigger aerospace_workspace_change']
+ctrl-shift-alt-cmd-2 = ['workspace 2-vscode',   'exec-and-forget sketchybar --trigger aerospace_workspace_change']
+ctrl-shift-alt-cmd-3 = ['workspace 3-terminal', 'exec-and-forget sketchybar --trigger aerospace_workspace_change']
+ctrl-shift-alt-cmd-4 = ['workspace 4-web',      'exec-and-forget sketchybar --trigger aerospace_workspace_change']
+ctrl-shift-alt-cmd-5 = ['workspace 5-slack',    'exec-and-forget sketchybar --trigger aerospace_workspace_change']
+ctrl-shift-alt-cmd-6 = ['workspace 6-spotify',  'exec-and-forget sketchybar --trigger aerospace_workspace_change']
+ctrl-shift-alt-cmd-7 = ['workspace 7-tbd',      'exec-and-forget sketchybar --trigger aerospace_workspace_change']
+ctrl-shift-alt-cmd-8 = ['workspace 8-tbd2',     'exec-and-forget sketchybar --trigger aerospace_workspace_change']
+
+# Move window to workspace — ctrl+cmd + 1-8
+ctrl-cmd-1 = ['move-node-to-workspace 1-dev',      'workspace 1-dev']
+ctrl-cmd-2 = ['move-node-to-workspace 2-vscode',   'workspace 2-vscode']
+ctrl-cmd-3 = ['move-node-to-workspace 3-terminal', 'workspace 3-terminal']
+ctrl-cmd-4 = ['move-node-to-workspace 4-web',      'workspace 4-web']
+ctrl-cmd-5 = ['move-node-to-workspace 5-slack',    'workspace 5-slack']
+ctrl-cmd-6 = ['move-node-to-workspace 6-spotify',  'workspace 6-spotify']
+ctrl-cmd-7 = ['move-node-to-workspace 7-tbd',      'workspace 7-tbd']
+ctrl-cmd-8 = ['move-node-to-workspace 8-tbd2',     'workspace 8-tbd2']
+
+# Switch workspace prev/next — alt + left/right
+cmd-left  = ['workspace prev', 'exec-and-forget sketchybar --trigger aerospace_workspace_change']
+cmd-right = ['workspace next', 'exec-and-forget sketchybar --trigger aerospace_workspace_change']
+
+# Move window to next/prev monitor
+ctrl-shift-alt-cmd-comma  = 'move-node-to-monitor prev'
+ctrl-shift-alt-cmd-period = 'move-node-to-monitor next'
+
+[workspace-to-monitor-force-assignment]
+1-dev      = 'LG TV SSCR2'
+2-vscode   = 'LG TV SSCR2'
+3-terminal = 'LG TV SSCR2'
+4-web      = 'LG TV SSCR2'
+5-slack    = 'Built-in Retina Display'
+6-spotify  = 'Built-in Retina Display'
+7-tbd      = 'Built-in Retina Display'
+8-tbd2     = 'Built-in Retina Display'
+
+# App → workspace assignments
+[[on-window-detected]]
+if.app-name-regex-substring = 'Ghostty'
+run = ['layout tiling', 'move-node-to-workspace 3-terminal']
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Spotify'
+run = 'move-node-to-workspace 6-spotify'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Slack'
+run = 'move-node-to-workspace 5-slack'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Code'
+run = 'move-node-to-workspace 2-vscode'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Zen Browser|Firefox|Chrome|Safari|Brave'
+run = 'move-node-to-workspace 4-web'

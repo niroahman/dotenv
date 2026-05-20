@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [[ -d "$HOME/.tmux/plugins/tpm" ]]; then
+    echo "tpm already installed"
+else
+    echo "Installing tpm..."
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    echo "tpm installed. Open tmux and press prefix + I to install plugins."
+fi

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+mkdir $HOME/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip-components 1 -C $HOME/homebrew
+
+fish_add_path $HOME/homebrew/bin
+fish_add_path $HOME/homebrew/sbin
+
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+
+brew bundle --file=./Brewfile --force cleanup
+brew bundle --file=./Brewfile -v

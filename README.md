@@ -1,6 +1,7 @@
 # dotenv
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/2941aed3-61f6-4bc2-ba87-6c1d3824e02f" />
 
-Personal macOS dotfiles. Symlink-based, idempotent.
+### Personal macOS dotfiles. Symlink-based, idempotent.
 
 ## Quickstart
 

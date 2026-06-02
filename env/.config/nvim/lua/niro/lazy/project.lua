@@ -1,10 +1,3 @@
-return {
-  "ahmedkhalf/project.nvim",
-  init = function()
-    require("project_nvim").setup {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    }
-  end
-}
+-- project.nvim removed: unmaintained, used deprecated vim.lsp.buf_get_clients()
+-- Project switching handled by snacks.nvim (Snacks.picker.projects)
+return {}

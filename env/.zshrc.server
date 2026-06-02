@@ -1,0 +1,31 @@
+# Server-specific zshrc for Linux (Proxmox)
+# Loaded instead of .zshrc on non-macOS hosts
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+export PATH="$HOME/scripts:$HOME/.local/bin:/usr/local/bin:$PATH"
+
+# fzf (apt-installed)
+if [[ -f /usr/share/doc/fzf/examples/completion.zsh ]]; then
+    source /usr/share/doc/fzf/examples/completion.zsh
+fi
+if [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
+
+# completions
+autoload -Uz compinit
+compinit
+
+# zoxide
+eval "$(zoxide init zsh)"
+
+# ghostty terminfo fallback (xterm-ghostty not in server terminfo db)
+[[ "$TERM" == "xterm-ghostty" ]] && export TERM=xterm-256color
+
+# starship
+eval "$(starship init zsh)"
+
+alias tmuxsave='tmux run-shell ~/.config/tmux/plugins/tmux-resurrect/scripts/save.sh'
+alias samantha='hermes'

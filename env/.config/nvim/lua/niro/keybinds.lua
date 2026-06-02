@@ -64,6 +64,18 @@ vim.keymap.set("n", "<leader>cl", function()
 	vim.notify(ref)
 end, { desc = "Copy file:line to clipboard" })
 
+-- copy file:start-end + selected text to clipboard (for Hermes/AI context)
+vim.keymap.set("v", "<leader>cl", function()
+	local start_line = vim.fn.line("'<")
+	local end_line = vim.fn.line("'>")
+	local filename = vim.fn.expand("%:p")
+	local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+	local header = filename .. ":" .. start_line .. "-" .. end_line
+	local result = header .. "\n" .. table.concat(lines, "\n")
+	vim.fn.setreg("+", result)
+	vim.notify(header)
+end, { desc = "Copy file:lines + text to clipboard" })
+
 -- oil.nvim
 vim.keymap.set("n", "-", "<cmd>Oil --float<CR>", { desc = "Open parent directory in Oil" })
 

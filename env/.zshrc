@@ -41,5 +41,31 @@ brew() {
     return $exit_code
 }
 
+# git wrapper — strips Claude co-author lines after commit
+git() {
+    command git "$@"
+    local exit_code=$?
+    if [[ $exit_code -eq 0 ]] && [[ "$1" == "commit" ]]; then
+        local msg
+        msg=$(command git log -1 --format="%B" 2>/dev/null)
+        if echo "$msg" | grep -qE '^Co-[Aa]uthored-[Bb]y:.*[Cc]laude|^.?Generated with.*[Cc]laude'; then
+            local cleaned
+            cleaned=$(echo "$msg" \
+                | grep -vE '^Co-[Aa]uthored-[Bb]y:.*[Cc]laude' \
+                | grep -vE '^.?Generated with.*[Cc]laude' \
+                | sed -e 's/[[:space:]]*$//')
+            # trim trailing blank lines
+            cleaned=$(echo "$cleaned" | awk 'NF{p=NR} NR<=p')
+            printf '%s\n' "$cleaned" | command git commit --amend -F - --no-edit 2>/dev/null
+        fi
+    fi
+    return $exit_code
+}
+
 # Personal AI dev system
 export PATH="$HOME/dev-system/bin:$PATH"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/niroahman/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

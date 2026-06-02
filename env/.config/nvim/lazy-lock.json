@@ -5,7 +5,7 @@
   },
   "avante.nvim": {
     "branch": "main",
-    "commit": "0e40cb0c0f13b87be8a2276a844428d60c466d78"
+    "commit": "4c2f8b2d96cef60b36d7be6d405af6537438c2f2"
   },
   "blink-cmp-copilot": {
     "branch": "main",
@@ -29,7 +29,7 @@
   },
   "catppuccin": {
     "branch": "main",
-    "commit": "8edd468af4d63212b84d69b2ddb5ffc9023ef5eb"
+    "commit": "0303a7208dba448c459767486a38a6ec05c4216b"
   },
   "cellular-automaton.nvim": {
     "branch": "main",
@@ -45,7 +45,7 @@
   },
   "copilot.lua": {
     "branch": "master",
-    "commit": "e8b9be2e51c393bedc893cef3bd1c5555a4d45f5"
+    "commit": "1d457ad5f267b8ef855a6b8b3fe152403cb00947"
   },
   "dressing.nvim": {
     "branch": "master",
@@ -74,10 +74,6 @@
   "harpoon": {
     "branch": "harpoon2",
     "commit": "87b1a3506211538f460786c23f98ec63ad9af4e5"
-  },
-  "hererocks": {
-    "branch": "master",
-    "commit": "3db37265c3839cbd4d27fc73f92fa7b58bc3a76f"
   },
   "img-clip.nvim": {
     "branch": "main",
@@ -153,7 +149,7 @@
   },
   "nvim-colorizer.lua": {
     "branch": "master",
-    "commit": "5cfe7fffbd01e17b3c1e14af85d5febdef88bd8c"
+    "commit": "664c0b7cea1de71f8b65dfe951b7996fc3e6ccde"
   },
   "nvim-dap": {
     "branch": "master",
@@ -241,7 +237,7 @@
   },
   "smart-splits.nvim": {
     "branch": "master",
-    "commit": "b24335c3186b6c35522fa108af63646a2f70b3b6"
+    "commit": "1865e6826b1cd90098f198acb0f5b744a7b40c22"
   },
   "snacks.nvim": {
     "branch": "main",

@@ -178,11 +178,36 @@ return {
 		--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 		--  - settings (table): Override the default settings passed when initializing the server.
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+		-- Resolve which Python interpreter pyright should use for a project:
+		--   1. an explicitly activated virtualenv ($VIRTUAL_ENV)
+		--   2. a project-local .venv / venv (what `uv sync` creates)
+		--   3. otherwise, the python on $PATH
+		local function resolve_python_path(root_dir)
+			local activated = os.getenv("VIRTUAL_ENV")
+			if activated and activated ~= "" then
+				return activated .. "/bin/python"
+			end
+			for _, name in ipairs({ ".venv", "venv" }) do
+				local candidate = root_dir .. "/" .. name .. "/bin/python"
+				if vim.fn.executable(candidate) == 1 then
+					return candidate
+				end
+			end
+			return vim.fn.exepath("python3")
+		end
+
 		local servers = {
 			bashls = {},
 			marksman = {},
 			gopls = {},
-			pyright = {},
+			pyright = {
+				before_init = function(_, config)
+					local root = config.root_dir or vim.fn.getcwd()
+					config.settings = config.settings or {}
+					config.settings.python = config.settings.python or {}
+					config.settings.python.pythonPath = resolve_python_path(root)
+				end,
+			},
 			cssls = {},
 			html = {},
 			jsonls = {},
@@ -241,6 +266,7 @@ return {
 			"yaml-language-server",
 			"sqls",
 			"eslint-lsp",
+			"ruff",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -257,6 +283,18 @@ return {
 					require("lspconfig")[server_name].setup(server)
 				end,
 			},
+		})
+
+		-- nvim 0.12 native LSP: force pyright to use the project's venv interpreter.
+		-- mason-lspconfig on 0.11+ does not reliably apply per-server opts from the
+		-- `servers` table above, so wire it through vim.lsp.config directly.
+		vim.lsp.config("pyright", {
+			before_init = function(_, config)
+				local root = config.root_dir or vim.fn.getcwd()
+				config.settings = vim.tbl_deep_extend("force", config.settings or {}, {
+					python = { pythonPath = resolve_python_path(root) },
+				})
+			end,
 		})
 	end,
 }

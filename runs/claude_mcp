@@ -1,0 +1,7 @@
+#!/bin/bash
+# Register Claude Code MCP servers at user scope.
+# Run once after fresh install: ./runs/claude_mcp
+set -e
+
+claude mcp add -s user web-logger /bin/bash "$HOME/.claude/web_logger_mcp.sh"
+echo "Done: web-logger MCP server registered"

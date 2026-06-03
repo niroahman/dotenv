@@ -6,6 +6,7 @@ $package\
 $git_branch\
 $git_status\
 $golang\
+$rust\
 $python\
 $aws\
 $kubernetes\
@@ -62,6 +63,11 @@ conflicted = "[≠${count}](maroon) "
 
 [nodejs]
 disabled = true
+
+[rust]
+symbol = " "
+style = "peach"
+format = "[$symbol($version)]($style) "
 
 [golang]
 symbol = " "

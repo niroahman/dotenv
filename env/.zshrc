@@ -64,8 +64,5 @@ git() {
 
 # Personal AI dev system
 export PATH="$HOME/dev-system/bin:$PATH"
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/niroahman/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
+# Docker CLI completions
+fpath=($HOME/.docker/completions $fpath)

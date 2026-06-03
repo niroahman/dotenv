@@ -3,3 +3,4 @@ errors.log
 env/.config/tmux/plugins/
 env/.config/karabiner/karabiner.json
 env/.config/karabiner/automatic_backups/
+env/dot-claude/settings.json

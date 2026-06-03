@@ -44,12 +44,13 @@ before linking. If already a symlink pointing elsewhere, it relinks.
 
 - `env/.config/karabiner/karabiner.json` — Karabiner manages this file itself; edit via the Karabiner-Elements UI
 - `env/.config/tmux/plugins/` — TPM installs these at runtime (`prefix + I`)
+- `env/dot-claude/settings.json` — machine-specific config (work profiles, AWS, model overrides); manage locally
 - `errors.log`
 
 ## Agent security (L5)
 
-Claude Code runs with `permissions.deny: ["Bash"]` globally via
-`env/dot-claude/settings.json`. A safe-tools MCP server
+Claude Code permissions are configured in `env/dot-claude/settings.json` (not tracked in git).
+The file is symlinked to `~/.claude/settings.json` via `./dev-env`. A safe-tools MCP server
 (`env/dot-claude/safe_tools_mcp.py`) provides narrow replacements:
 `run_tests`, `git_status`, `git_log`, `git_diff`, `git_commit`,
 `run_install`, `run_linter`, `list_dir`, `check_tool`.

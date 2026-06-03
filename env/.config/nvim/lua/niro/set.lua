@@ -39,9 +39,9 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
--- vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "100"
 
-vim.opt.showmode = true -- dont show mode as its on the statusline
+vim.opt.showmode = true
 vim.opt.cmdheight = 0
 -- Highlight text for some time after yanking
 vim.api.nvim_create_autocmd("TextYankPost", {

@@ -256,17 +256,14 @@ return {
 			"stylua",
 			"prettierd",
 			"prettier",
-			"gopls",
-			"vtsls",
 			"delve",
-			"pyright",
 			"css-lsp",
 			"html-lsp",
 			"json-lsp",
 			"yaml-language-server",
-			"sqls",
 			"eslint-lsp",
 			"ruff",
+			"js-debug-adapter",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

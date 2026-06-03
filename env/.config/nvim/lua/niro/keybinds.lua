@@ -50,7 +50,7 @@ vim.keymap.set("n", "<leader>ea", 'oassert.NoError(err, "")<Esc>F";a')
 
 vim.keymap.set("n", "<leader>el", 'oif err != nil {<CR>}<Esc>O.logger.Error("error", "error", err)<Esc>F.;i')
 
-vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>")
+vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim/lua/niro/lazy_init.lua<CR>")
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
 
 vim.keymap.set("n", "<leader><leader>", function()
@@ -58,14 +58,14 @@ vim.keymap.set("n", "<leader><leader>", function()
 end)
 
 -- copy file:line to clipboard for referencing in claude/terminal
-vim.keymap.set("n", "<leader>cl", function()
+vim.keymap.set("n", "<leader>cc", function()
 	local ref = vim.fn.expand("%:p") .. ":" .. vim.fn.line(".")
 	vim.fn.setreg("+", ref)
 	vim.notify(ref)
 end, { desc = "Copy file:line to clipboard" })
 
 -- copy file:start-end + selected text to clipboard (for Hermes/AI context)
-vim.keymap.set("v", "<leader>cl", function()
+vim.keymap.set("v", "<leader>cc", function()
 	local start_line = vim.fn.line("'<")
 	local end_line = vim.fn.line("'>")
 	local filename = vim.fn.expand("%:p")

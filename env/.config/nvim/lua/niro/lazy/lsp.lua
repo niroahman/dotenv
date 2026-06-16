@@ -236,6 +236,7 @@ return {
 				},
 			},
 			lua_ls = {},
+			astro = {},
 		}
 
 		-- Ensure the servers and tools above are installed
@@ -264,6 +265,7 @@ return {
 			"eslint-lsp",
 			"ruff",
 			"js-debug-adapter",
+			"astro-language-server",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

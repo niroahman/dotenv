@@ -5,7 +5,7 @@ local ensure_installed = {
     "vimdoc", "javascript", "typescript", "tsx", "c", "lua", "rust",
     "jsdoc", "bash", "vim", "markdown", "markdown_inline", "luadoc",
     "html", "css", "json", "yaml", "go", "python", "query", "regex",
-    "diff", "gitcommit",
+    "diff", "gitcommit", "astro",
 }
 
 return {

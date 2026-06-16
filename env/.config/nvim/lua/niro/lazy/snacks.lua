@@ -20,6 +20,9 @@ return {
 		statuscolumn = { enabled = true },
 		words = { enabled = true },
 		image = { enabled = true },
+		terminal = {
+			win = { style = "float" },
+		},
 		styles = {
 			notification = {
 				-- wo = { wrap = true } -- Wrap notifications
@@ -472,6 +475,20 @@ return {
 			desc = "Dismiss All Notifications",
 		},
 		{
+			"<leader>t1",
+			function()
+				Snacks.terminal(nil, { count = 1 })
+			end,
+			desc = "Terminal 1",
+		},
+		{
+			"<leader>t2",
+			function()
+				Snacks.terminal(nil, { count = 2 })
+			end,
+			desc = "Terminal 2",
+		},
+		{
 			"<c-/>",
 			function()
 				Snacks.terminal()
@@ -484,6 +501,12 @@ return {
 				Snacks.terminal()
 			end,
 			desc = "which_key_ignore",
+		},
+		{
+			"<esc><esc>",
+			"<cmd>close<cr>",
+			mode = "t",
+			desc = "Close Terminal",
 		},
 		{
 			"]]",

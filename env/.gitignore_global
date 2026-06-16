@@ -1,0 +1,14 @@
+# direnv — local venv activation, never commit
+.envrc
+
+# Python virtualenvs
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+**/.claude/settings.local.json
+
+# AI team tooling
+.ai-team/

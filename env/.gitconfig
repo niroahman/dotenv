@@ -4,8 +4,11 @@
 
 [core]
 	editor = nvim
+[sequence]
+	editor = interactive-rebase-tool
 	autocrlf = input
 	hooksPath = ~/.config/git/hooks
+	excludesfile = ~/.gitignore_global
 
 [init]
 	defaultBranch = main
@@ -15,6 +18,19 @@
 
 [push]
 	autoSetupRemote = true
+
+[merge]
+	tool = fugitive
+	conflictstyle = merge
+
+[mergetool]
+	keepBackup = false
+
+[mergetool "nvimdiff2"]
+	cmd = nvim -d $LOCAL $MERGED -c 'wincmd l' -c 'norm ]c'
+
+[mergetool "fugitive"]
+	cmd = nvim -c "Gvdiffsplit!" "$MERGED"
 
 [alias]
 	st = status

@@ -13,6 +13,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 # sheldon (must load before compinit so zsh-completions fpath is set)
 eval "$(sheldon source)"
 
@@ -62,7 +67,15 @@ git() {
     return $exit_code
 }
 
+# direnv — auto-activate .venv when entering project dirs
+eval "$(direnv hook zsh)"
+
 # Personal AI dev system
 export PATH="$HOME/dev-system/bin:$PATH"
 # Docker CLI completions
 fpath=($HOME/.docker/completions $fpath)
+export PATH="$PATH:/Users/niroahman/go/bin"
+alias aws="/Users/niroahman/homebrew/bin/aws"
+
+# secrets (not tracked in dotenv repo)
+[[ -f "$HOME/.secrets/env.zsh" ]] && source "$HOME/.secrets/env.zsh"

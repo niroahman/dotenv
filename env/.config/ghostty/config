@@ -32,5 +32,7 @@ macos-icon-ghost-color = #FF07DD
 command = /bin/zsh -c "$HOME/homebrew/bin/tmux attach 2>/dev/null || $HOME/homebrew/bin/tmux"
 window-padding-x = 8
 window-padding-y = 8
-macos-titlebar-style = hidden
+macos-titlebar-style = native
 copy-on-select = true
+keybind = ctrl+left=unbind
+keybind = ctrl+right=unbind

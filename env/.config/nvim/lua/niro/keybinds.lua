@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.keymap.set("n", "q:", "<nop>")
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 --- move line up and down on visual mode

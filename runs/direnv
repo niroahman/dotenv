@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# direnv: auto-activate Python virtualenvs when entering project dirs.
+# Projects need a .envrc file with: source .venv/bin/activate
+# Run: direnv allow   (once per project)
+
+brew install direnv pyenv

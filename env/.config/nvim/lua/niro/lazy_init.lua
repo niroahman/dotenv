@@ -18,4 +18,5 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 require("lazy").setup({
 	spec = "niro.lazy",
 	change_detection = { notify = false },
+	rocks = { enabled = false },
 })

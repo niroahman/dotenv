@@ -79,3 +79,13 @@ alias aws="/Users/niroahman/homebrew/bin/aws"
 
 # secrets (not tracked in dotenv repo)
 [[ -f "$HOME/.secrets/env.zsh" ]] && source "$HOME/.secrets/env.zsh"
+[[ -f "$HOME/secrets/gemini-api-key" ]] && export GEMINI_API_KEY=$(cat "$HOME/secrets/gemini-api-key")
+
+# 🎩 Poirot — local reviewbot
+poirot-rb() {
+  local base=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|refs/remotes/origin/||' || echo "main")
+  reviewbot --local --personality poirot --base "origin/$base" --out "." "$@"
+}
+poirot-wip() {
+  reviewbot --uncommitted --personality poirot --out "." "$@"
+}

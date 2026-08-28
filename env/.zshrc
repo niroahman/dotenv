@@ -77,6 +77,9 @@ fpath=($HOME/.docker/completions $fpath)
 export PATH="$PATH:/Users/niroahman/go/bin"
 alias aws="/Users/niroahman/homebrew/bin/aws"
 
+# difit — local git diff viewer (github-like UI)
+alias difit='npx difit'
+
 # secrets (not tracked in dotenv repo)
 [[ -f "$HOME/.secrets/env.zsh" ]] && source "$HOME/.secrets/env.zsh"
 [[ -f "$HOME/secrets/gemini-api-key" ]] && export GEMINI_API_KEY=$(cat "$HOME/secrets/gemini-api-key")

@@ -1,0 +1,88 @@
+# herdr configuration
+# Place this file at ~/.config/herdr/config.toml
+
+[theme]
+name = "catppuccin"
+
+[keys]
+prefix = "ctrl+space"
+
+[[keys.command]]
+key = "prefix+l"
+type = "popup"
+command = "lazygit"
+width = "90%"
+height = "90%"
+
+[[keys.command]]
+key = "prefix+g"
+type = "plugin_action"
+command = "fullerzz.sesh.open-picker"
+
+[[keys.command]]
+key = "prefix+w"
+type = "plugin_action"
+command = "worktrunk.open"
+description = "worktrunk: new/switch worktree (from default branch)"
+
+[[keys.command]]
+key = "prefix+ctrl+w"
+type = "plugin_action"
+command = "worktrunk.open-current"
+description = "worktrunk: new/switch worktree (from current branch)"
+
+[[keys.command]]
+key = "prefix+shift+w"
+type = "plugin_action"
+command = "worktrunk.remove"
+description = "worktrunk: remove worktree"
+
+[[keys.command]]
+key = "prefix+ctrl+s"
+type = "plugin_action"
+command = "ntindle.herdr-resurrect.save"
+description = "resurrect: save"
+
+[[keys.command]]
+key = "prefix+ctrl+r"
+type = "plugin_action"
+command = "ntindle.herdr-resurrect.restore"
+description = "resurrect: restore"
+
+[ui]
+accent = "#EA00FF"
+show_agent_labels_on_pane_borders = false
+
+agent_panel_sort = "priority"
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "herdr-nvim-nav.left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "herdr-nvim-nav.down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "herdr-nvim-nav.up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "herdr-nvim-nav.right"
+
+[ui.sound]
+enabled = true
+path = "sounds/purr.mp3"
+done_path = "sounds/purr.mp3"
+request_path = "sounds/purr.mp3"
+
+[session]
+resume_agents_on_restore = true
+
+[experimental]
+allow_nested = true
+kitty_graphics = true

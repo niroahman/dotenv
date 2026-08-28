@@ -24,6 +24,8 @@ scripts/brewsync       # Regenerate Brewfile from live Homebrew state
 | `env/.config/<file>.*` | `~/.config/<file>.*` (file symlink) |
 | `env/.<file>` | `~/<file>` (file symlink) |
 | `env/dot-claude/*` | `~/.claude/*` (individual file symlinks) |
+| `env/dot-claude/skills/<name>/` | `~/.claude/skills/<name>` (individual dir symlinks — leaves other `~/.claude/skills/*` entries, e.g. matt-pocock-managed ones, untouched) |
+| `env/dot-claude/hooks/*` | `~/.claude/hooks/*` (individual file symlinks) |
 | `scripts/*` | `~/scripts/*` |
 
 If target exists as a real file, `dev-env` backs it up as `<target>.bak`
@@ -46,6 +48,13 @@ before linking. If already a symlink pointing elsewhere, it relinks.
 - `env/.config/tmux/plugins/` — TPM installs these at runtime (`prefix + I`)
 - `env/dot-claude/settings.json` — machine-specific config (work profiles, AWS, model overrides); manage locally
 - `errors.log`
+
+The two config files above are **not** recreated by `./install` — copy them
+across by hand when moving to a new machine.
+
+`scripts/brewsync` drops all `go "..."` entries after dumping: `brew bundle
+dump` records every `~/go/bin` binary with its full module path, some of which
+live on private hosts, and this repo is public. Install go binaries by hand.
 
 ## Agent security (L5)
 
@@ -72,4 +81,4 @@ pi --tools read,edit,write,grep,find,run_tests,git_status,list_dir
 
 ## Known stubs
 
-- `runs/neovim` — empty placeholder, neovim install not yet scripted
+- `runs/claude_mcp` — not executable, so `./install` skips it; `chmod +x` to enable

@@ -5,4 +5,14 @@ script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 brewfile="$script_dir/../Brewfile"
 
 brew bundle dump --file="$brewfile" --force
+
+# This repo is public. `brew bundle dump` records every ~/go/bin binary with
+# its full module path, and some of those modules live on private hosts. Drop
+# all of them rather than maintaining an allowlist — go binaries aren't part of
+# the bootstrap anyway.
+if grep -q '^go "' "$brewfile"; then
+    grep -v '^go "' "$brewfile" >"$brewfile.tmp" && mv "$brewfile.tmp" "$brewfile"
+    echo "Stripped go module entries."
+fi
+
 echo "Brewfile updated."
